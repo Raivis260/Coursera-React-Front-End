@@ -3,6 +3,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbIte
 import { Control, LocalForm, Errors} from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl'; 
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -104,7 +105,7 @@ function RenderDish({dish}) {
             return(
                 <div>
                     <Card>
-                    <CardImg width="100%" src={dish.image} alt={dish.name}/>
+                    <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name}/>
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
                         <CardText>{dish.description}</CardText>
@@ -120,7 +121,7 @@ function RenderDish({dish}) {
         }       
 }
     
-function RenderComments({comments, addComment, dishId}) {
+function RenderComments({comments, errMess, addComment, dishId}) {
         if(comments != null) {
             return (
                 <div>
@@ -139,7 +140,7 @@ function RenderComments({comments, addComment, dishId}) {
             }
             else {
                 return(
-                <div></div>
+                <div>{errMess}</div>
                 )
             }
 }
@@ -182,6 +183,7 @@ const DishDetail = (props) => {
                     </div>
                     <div className="col-12 col-md-5 m-1">
                     <RenderComments comments={props.comments}
+                    errMess={props.commentsErrMessage}
                     addComment={props.addComment}
                     dishId={props.dish.id} />
                     </div>
