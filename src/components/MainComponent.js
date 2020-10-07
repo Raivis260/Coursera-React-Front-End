@@ -30,10 +30,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Main extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.fetchDishes();
     this.props.fetchComments();
@@ -46,7 +42,7 @@ class Main extends Component {
       return(
         <Home dish ={this.props.dishes.dishes.filter((dish) => dish.featured === true)[0]}
         dishesLoading={this.props.dishes.isLoading}
-        dishesErrMessage={this.props.dishes.errMessage}
+        dishesErrMessage={this.props.dishes.errMess}
         promotion = {this.props.promotions.promotions.filter((promotion) => promotion.featured === true)[0]}
         promosLoading={this.props.promotions.isLoading}
         promosErrMessage={this.props.promotions.errMess}
@@ -59,7 +55,7 @@ class Main extends Component {
       return(
         <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
         isLoading={this.props.dishes.isLoading}
-        errMessage={this.props.dishes.errMessage}
+        errMessage={this.props.dishes.errMess}
         comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
         commentsErrMessage={this.props.comments.errMess}
         addComment={this.props.addComment}
@@ -78,7 +74,7 @@ class Main extends Component {
       <Header />
       <Switch>
         <Route path="/home" component={HomePage} />
-        <Route exact path="/menu" component={() => < Menu dishes={this.props.dishes.dishes} isDishesLoading={this.props.dishes.isLoading} isErrMessage={this.props.dishes.errMessage}/> } />
+        <Route exact path="/menu" component={() => < Menu dishes={this.props.dishes.dishes} isDishesLoading={this.props.dishes.isLoading} isErrMessage={this.props.dishes.errMess}/> } />
         <Route path = "/menu/:dishId" component ={DishWithId} />
         <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
         <Route exact path="/aboutus" component={AboutPage} />

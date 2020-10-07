@@ -28,10 +28,10 @@ const Menu = (props) => {
         </div>);
     }
 
-    else if(props.errMeesage) {
+    else if(props.isErrMessage) {
         return(
             <div>
-                <h4>props.errMassage</h4>
+                <h4>{props.isErrMessage}</h4>
             </div>
         );
     }
