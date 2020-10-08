@@ -1,3 +1,5 @@
+import * as ActionTypes from './ActionTypes';
+
 export const InitialFeedback = {
     firstName: '',
     lastName: '',
@@ -8,3 +10,12 @@ export const InitialFeedback = {
     message: ''
 };
 
+export const Feedback = (state, action) =>  {
+
+    switch(action.type) {
+        case ActionTypes.ADD_FEEDBACK:
+            return {...state};
+        default: 
+            return state;
+    }
+}

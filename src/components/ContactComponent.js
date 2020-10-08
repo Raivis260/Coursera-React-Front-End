@@ -19,8 +19,10 @@ class Contact extends Component {
 
     handleSubmit(values) {
         
-        alert('THIS STATE: ' + JSON.stringify(values));
+        this.props.postFeedback(values.firstName, values.lastName, values.telnum, values.email, values.agree, values.contactType, values.message);
+        alert('Thank you for your feedback!' + JSON.stringify(values));
         this.props.resetFeedbackForm();
+        
     }
 
     render() 
@@ -117,14 +119,14 @@ class Contact extends Component {
                                         placeholder="Tel. Number"
                                         className="form-control"
                                         validators = {{
-                                            required, validEmail
+                                            required, isNumber
                                         }}/>
                                         <Errors className="text-danger"
-                                            model=".email"
+                                            model=".telnum"
                                             show="touched"
                                             messages= {{
                                                 required: 'Required',
-                                                validEmail: "Invalid email address"
+                                                isNumber: "Invalid number"
                                             }}/>
                                 </Col>
                             </Row>
@@ -135,7 +137,7 @@ class Contact extends Component {
                                         placeholder="Email"
                                         className="form-control"
                                         validators = {{
-                                            required, minLength: minLength(3), maxLength: maxLength(15), isNumber
+                                            required, minLength: minLength(3), validEmail
                                         }}/>
                                 </Col>
                             </Row>

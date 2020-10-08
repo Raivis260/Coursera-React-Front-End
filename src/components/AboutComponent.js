@@ -1,14 +1,35 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl'; 
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
-function RenderLeader({leader}) {
+function RenderLeader({leader, isLoading, errMess}) {
 
-    if (leader != null) {
+    if (isLoading) {
         return(
+            <div>
+                <Loading />
+            </div>
+        );
+    }
+
+    else if (errMess) {
+        return (
+            <div>
+                <h4>{errMess}</h4>
+            </div>
+        );
+    }
+
+    else if (leader != null) {
+        return(
+            
+            
             <Media tag="li" className="mr-5 mt-5">
                 <Media left className="mr-4">
-                    <Media object src={leader.image} alt="Leader photo"/>
+                    <Media object src={baseUrl + leader.image} alt="Leader photo"/>
                 </Media>
                 <Media body>
                     <Media heading>
@@ -20,6 +41,7 @@ function RenderLeader({leader}) {
                     {leader.description} 
                 </Media>
             </Media>
+            
                 );
         }
     else {
@@ -31,8 +53,10 @@ function RenderLeader({leader}) {
 function About(props) {
 
     const leaders = props.leaders.map((leader) => {
-        return (
-            <RenderLeader leader={leader} />
+        return (   
+            <Fade in>
+            <RenderLeader leader={leader} isLoading={props.leadersLoading} errMess={props.leadersErrMessage}/>
+            </Fade>
         );
     });
 
@@ -92,8 +116,11 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list >
+                    <Stagger in>
                     {leaders}
+                    </Stagger>
                     </Media>
+                    
                 </div>
             </div>
         </div>
